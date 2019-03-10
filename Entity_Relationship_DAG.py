@@ -7,6 +7,9 @@ import networkx as nx
 from networkx.drawing import nx_pydot
 from networkx.drawing.nx_pydot import write_dot
 import matplotlib.pyplot as plt
+import graphviz as gv
+from graphviz import render
+
 
 # Initiating the DiGraph and assigning it to the variable G
 G = nx.DiGraph()
@@ -39,5 +42,8 @@ write_dot(G, 'IA_RELATIONSHIP.dot')
 # showing the graph that was drawn above using MatPlotLib, I will need to render this in GraphViz since MatPlotLib's window is too _ 
     # small and has too much node overlap.
 plt.show(G)
+
+
+render('dot', 'png', 'IA_RELATIONSHIP.dot', renderer= None, formatter= None, quiet= False)
 
 #%%
