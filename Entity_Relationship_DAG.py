@@ -39,17 +39,3 @@ write_dot(G, 'C:/Users/RFrench/Desktop/PDF/IA_RELATIONSHIP2.dot')
 # showing the graph that was drawn above using MatPlotLib, I will need to render this in GraphViz since MatPlotLib's window is too _ 
     # small and has too much node overlap.
 plt.show(G)
-
-
-###from subprocess import check_call
-###check_call(['dot','-Tpng','C:/Users/RFrench/Desktop/PDF/IA_RELATIONSHIP.dot','-o','C:/Users/RFrench/Desktop/PDF/IA_RELATIONSHIP.png'])
-
-
-#plt.savefig("C:/Users/RFrench/Desktop/PDF/IA_RELATIONSHIP.png")
-
-
-
-
-
-#G=pgv.AGraph(strict=False,directed=True)
-#G=pgv.AGraph("C:/Users/RFrench/Desktop/PDF/IA_RELATIONSHIP.dot") 
