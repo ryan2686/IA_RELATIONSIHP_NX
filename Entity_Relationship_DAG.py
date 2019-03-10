@@ -28,14 +28,16 @@ options = {
 # creating a dictionary file that contains node positions many layouts available, I chose the graphviz layout because I intend _ 
     # use graphviz to render my graph at some point due to it's ability to draw heirarchical graphs using a root and it's portability _
     # which means I can install it on my work pc without admin priviliges.
-pos = nx_pydot.graphviz_layout(G)
+pos = nx_pydot.graphviz_layout(G, root='F0000PT1')
 
 # drawing my graph to be rendered in a simple MatPlotLib window
 nx.draw(G, with_labels=True, **options)
 
 # writing a dot file to be, later, rendered using GraphViz in a later iteration
-write_dot(G, 'C:/Users/RFrench/Desktop/PDF/IA_RELATIONSHIP2.dot')
+write_dot(G, 'IA_RELATIONSHIP.dot')
 
 # showing the graph that was drawn above using MatPlotLib, I will need to render this in GraphViz since MatPlotLib's window is too _ 
     # small and has too much node overlap.
 plt.show(G)
+
+#%%
