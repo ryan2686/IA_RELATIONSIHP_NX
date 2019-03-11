@@ -26,11 +26,16 @@ csv_path = 'IA_RELATIONSHIP.csv'
 edges = pd.read_csv(csv_path)
 
 # added create_using parameter because graph wasn't rendering as directional
-G = nx.from_pandas_edgelist(edges, source='InvestorID', target='InvestmentID', create_using=G)
+G = nx.from_pandas_edgelist(edges, source='InvestorID', target='InvestmentID', edge_attr='label' , create_using=G)
 
 # writing a dot file to be, later, rendered using GraphViz in a later iteration
 write_dot(G, 'IA_RELATIONSHIP.dot')
 
+
+# Broke-out into a seperate cell so I could add the ratio=.25 to the beginning of the Dot file prior to rendering.
+# I would like to have this built in to the script but I'm having trouble figuring out how to do this via
+# NetworkX or GraphViz, I could parse it as a text file but that seems a bit unsophisticated.
+#%%
 # switched output from png to scalable vector graphics (svg) because svg files are clear at any scale
     # and svg files are searchable 
 render('dot', 'svg', 'IA_RELATIONSHIP.dot', renderer= None, formatter= None, quiet= False)
