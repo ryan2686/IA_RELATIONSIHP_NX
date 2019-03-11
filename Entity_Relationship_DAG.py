@@ -26,7 +26,7 @@ csv_path = 'IA_RELATIONSHIP.csv'
 edges = pd.read_csv(csv_path)
 
 # added create_using parameter because graph wasn't rendering as directional
-G = nx.from_pandas_edgelist(edges, source='InvestorID', target='InvestmentID', create_using=nx.DiGraph())
+G = nx.from_pandas_edgelist(edges, source='InvestorID', target='InvestmentID', create_using=G)
 
 # writing a dot file to be, later, rendered using GraphViz in a later iteration
 write_dot(G, 'IA_RELATIONSHIP.dot')
