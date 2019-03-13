@@ -1,5 +1,3 @@
-
-
 #%%
 
 # Importing necessary modules: NetworkX to generate DAG, MatPlotLib to view DAG
@@ -20,7 +18,7 @@ G = nx.DiGraph()
 
 # SQL used to generate data for Relationship CSV File
     # SELECT RTRIM(LTRIM(IA.InvestorID)) as InvestorID, RTRIM(LTRIM(IA.InvestmentID)) as InvestmentID, RTRIM(LTRIM(IA.OwnershipPct)) as label
-    # BKUSLP.HARMONY_TEST.DBO.IA_RELATIONSHIP IA, BKUSLP.HARMONY_TEST.DBO.ENTITY EN
+    # FROM BKUSLP.HARMONY_TEST.DBO.IA_RELATIONSHIP IA, BKUSLP.HARMONY_TEST.DBO.ENTITY EN
     # WHERE IA.InvestorID = EN.ENTITYID AND EN.LEDGCODE <> 'CA'
 
 
