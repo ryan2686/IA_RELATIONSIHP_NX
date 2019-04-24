@@ -25,8 +25,8 @@ G = nx.DiGraph()
 #         pyodbc will be used to connect to database and execute raw SQL statements
 
 # Added user inputs to define connection string
-ServerInput = input("Enter Server Name: ")
-DatabaseInput = input("Enter Database Name: ")
+ServerInput = 'BT4SQL11QA\sqlcol' #input("Enter Server Name: ")
+DatabaseInput = 'MRI_Source' #input("Enter Database Name: ")
 
 conn_str = (
      r'DRIVER={SQL Server};'
@@ -36,7 +36,7 @@ conn_str = (
 )
 
 # Since Python 3 input should automatically convert inputs to string, Python 2 used raw_input for this.
-#       However, this doesn't appear to be working correctly so I had to convert the connection string
+#       However, this doesn't appear to be working correctly so I had to convert the connection inputs
 #       to a string explicitly.
 conn_str = str(conn_str)
 
@@ -45,7 +45,6 @@ conn = pyodbc.connect(conn_str)
 
 # Loads SQL query into pandas dataframe
 edges = pd.read_sql("SELECT RTRIM(LTRIM(IA.InvestorID)) as InvestorID, RTRIM(LTRIM(IA.InvestmentID)) as InvestmentID, RTRIM(LTRIM(IA.OwnershipPct)) as label FROM BKUSLP.HARMONY_IMPL.DBO.IA_RELATIONSHIP2 IA, BKUSLP.HARMONY_IMPL.DBO.ENTITY EN WHERE IA.InvestorID = EN.ENTITYID AND EN.LEDGCODE = 'BK'", conn)
-
 
 # The below two lines have been commented out because this script now connects directly to
 #         the database instead of dumping data into csv file via seperate query.
@@ -70,3 +69,9 @@ write_dot(G, 'IA_RELATIONSHIP.dot')
 render('dot', 'svg', 'IA_RELATIONSHIP.dot', renderer= None, formatter= None, quiet= False)
 
 #%%
+
+import networkx as nx
+print(nx.__file__)
+
+
+#G = nx.from_pandas_edgelist({"InvestorID":{"F0000"}, ""}, source='InvestorID', target='InvestmentID', edge_attr='label' , create_using=G)
