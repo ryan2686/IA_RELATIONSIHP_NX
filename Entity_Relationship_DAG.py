@@ -25,7 +25,7 @@ G = nx.DiGraph()
 #         pyodbc will be used to connect to database and execute raw SQL statements
 
 # Added user inputs to define connection string
-ServerInput = 'BT4SQL11QA\sqlcol' #input("Enter Server Name: ")
+ServerInput = r'BT4SQL11QA\sqlcol' #input("Enter Server Name: ")
 DatabaseInput = 'MRI_Source' #input("Enter Database Name: ")
 
 conn_str = (
