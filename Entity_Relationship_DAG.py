@@ -44,7 +44,28 @@ conn_str = str(conn_str)
 conn = pyodbc.connect(conn_str)
 
 # Loads SQL query into pandas dataframe
-edges = pd.read_sql("SELECT RTRIM(LTRIM(IA.InvestorID)) as InvestorID, RTRIM(LTRIM(IA.InvestmentID)) as InvestmentID, RTRIM(LTRIM(IA.OwnershipPct)) as label FROM BKUSLP.HARMONY_IMPL.DBO.IA_RELATIONSHIP2 IA, BKUSLP.HARMONY_IMPL.DBO.ENTITY EN WHERE IA.InvestorID = EN.ENTITYID AND EN.LEDGCODE = 'BK'", conn)
+# edges = pd.read_sql("SELECT RTRIM(LTRIM(IA.InvestorID)) as InvestorID, RTRIM(LTRIM(IA.InvestmentID)) as InvestmentID, RTRIM(LTRIM(IA.OwnershipPct)) as label FROM BKUSLP.HARMONY_IMPL.DBO.IA_RELATIONSHIP IA, BKUSLP.HARMONY_IMPL.DBO.ENTITY EN WHERE IA.InvestorID = EN.ENTITYID AND EN.LEDGCODE = 'BK' --AND EN.PROJID = 'F_SA'", conn)
+edges = pd.read_sql("\
+SELECT \
+	RG.InvestorID, \
+	RG.InvestmentID, \
+	RG.label \
+FROM \
+	(SELECT \
+		RTRIM(LTRIM(IA.InvestorID)) as InvestorID, \
+		RTRIM(LTRIM(IA.InvestmentID)) as InvestmentID, \
+		RTRIM(LTRIM(IA.OwnershipPct)) as label, \
+		MAX(IA.StartDate) as StartDate \
+	FROM \
+		BKUSLP.HARMONY_Q2.DBO.IA_RELATIONSHIP IA, \
+		BKUSLP.HARMONY_Q2.DBO.ENTITY EN \
+	WHERE \
+		IA.InvestorID = EN.ENTITYID AND EN.LEDGCODE = 'BK' AND (IA.EndDate is NULL OR IA.EndDate >= GETDATE()) \
+	GROUP BY \
+		IA.InvestorID, \
+		IA.InvestmentID, \
+		IA.OwnershipPct) RG \
+    ", conn)
 
 # The below two lines have been commented out because this script now connects directly to
 #         the database instead of dumping data into csv file via seperate query.
